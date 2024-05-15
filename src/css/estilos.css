@@ -130,7 +130,7 @@ main .descricao
 }
 
 .cardSearched{
-    display: none;
+    /* display: none; */
     margin: 10px;
 }
 
@@ -179,4 +179,21 @@ main .descricao
 
 .submit:active {
     transform: scale(0.95);
+}
+
+.buttons{
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+.buttonLeft ,.buttonRigth{
+    width: 20px;
+}
+
+.pre , .next{
+    background-color: #d8e3ec;
+    border: 0;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
 }

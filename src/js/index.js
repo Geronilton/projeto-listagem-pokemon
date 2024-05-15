@@ -46,7 +46,10 @@ const tipo1 = document.querySelector(".tipo2");
 const id = document.querySelector(".id");
 const form = document.querySelector(".form");
 const input = document.querySelector(".input");
+const buttonPre = document.querySelector(".pre");
+const buttonNext = document.querySelector(".next");
 
+let InicialPokemon = 1;
 const buscarPokemon = async (pokemon) => {
     const responseApi = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
    if (responseApi.status === 200){
@@ -63,6 +66,8 @@ const renderPokemon = async (pokemon) => {
     id.innerHTML = `# ${data.id}`;
     imgPok.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
     tipo.innerHTML = data.types[0]['type']['name'];
+    InicialPokemon = data.id;
+
     if (data.types.length > 1){
         tipo1.innerHTML = data.types[1].type.name;
         tipo1.style.display = "inline";
@@ -73,9 +78,23 @@ const renderPokemon = async (pokemon) => {
     
 };
 
+
+
 form.addEventListener("submit", (event)=>{
     cardSearched.style.display = "inline";
     event.preventDefault();
     const pokemon = input.value;
     renderPokemon(pokemon.toLowerCase())
+});
+
+buttonPre.addEventListener("click", ()=>{
+    if (InicialPokemon > 1) {
+        InicialPokemon -= 1;
+        renderPokemon(InicialPokemon);
+    }
+})
+
+buttonNext.addEventListener("click", () => {
+    InicialPokemon += 1;
+    renderPokemon(InicialPokemon);
 });
