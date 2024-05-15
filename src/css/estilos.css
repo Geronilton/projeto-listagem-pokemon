@@ -130,7 +130,7 @@ main .descricao
 }
 
 .cardSearched{
-    /* display: none; */
+    display: none;
     margin: 10px;
 }
 
