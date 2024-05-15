@@ -19,7 +19,7 @@
 // correspondente ao botão de troca de tema
 const botaoAlterarTema = document.getElementById("botao-alterar-tema");
 const body = document.querySelector("body");
-const imagemBotaoTrocaDeTema = document.querySelector(".imagem-botao")
+const imagemBotaoTrocaDeTema = document.querySelector(".imagem-botao");
 
 botaoAlterarTema.addEventListener("click",() => {
 
@@ -34,3 +34,48 @@ botaoAlterarTema.addEventListener("click",() => {
     }
 });
 
+
+
+// Pesquisa de pokemon
+
+const cardSearched = document.querySelector(".cardSearched");
+const pokeName = document.querySelector(".name");
+const imgPok = document.querySelector(".imgPokemon");
+const tipo = document.querySelector(".tipo1");
+const tipo1 = document.querySelector(".tipo2");
+const id = document.querySelector(".id");
+const form = document.querySelector(".form");
+const input = document.querySelector(".input");
+
+const buscarPokemon = async (pokemon) => {
+    const responseApi = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+   if (responseApi.status === 200){
+    const data = await responseApi.json();
+    console.log(data);
+    return data;
+   };
+};
+
+const renderPokemon = async (pokemon) => {
+    const data = await buscarPokemon(pokemon);
+
+    pokeName.innerHTML = data.name ;
+    id.innerHTML = `# ${data.id}`;
+    imgPok.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+    tipo.innerHTML = data.types[0]['type']['name'];
+    if (data.types.length > 1){
+        tipo1.innerHTML = data.types[1].type.name;
+        tipo1.style.display = "inline";
+    }else{
+        tipo1.innerHTML = "";
+        tipo1.style.display = "none";
+    }
+    
+};
+
+form.addEventListener("submit", (event)=>{
+    cardSearched.style.display = "inline";
+    event.preventDefault();
+    const pokemon = input.value;
+    renderPokemon(pokemon.toLowerCase())
+});
